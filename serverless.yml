@@ -1,0 +1,24 @@
+service: white-label
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  memorySize: 192
+  timeout: 10
+  #stage: production
+  stage: dev
+  region: us-east-1
+  profile: white-label
+
+functions:
+  express:
+    handler: handler.express
+    events:
+      - http:
+          method: ANY
+          path: /{proxy+}
+          cors: true
+      - http:
+          method: ANY
+          path: /
+          cors: true
